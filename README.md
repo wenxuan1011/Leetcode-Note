@@ -1,1 +1,3 @@
 # Leetcode-Note
+
+As titled.
