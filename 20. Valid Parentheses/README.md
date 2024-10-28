@@ -37,7 +37,7 @@ Output: true
 
 其實就是按照邏輯去逐一判斷服不符合。
 
-```
+```python
 class Solution(object):
     def isValid(self, s):
         """
@@ -74,7 +74,7 @@ class Solution(object):
     * `not stack` 是在檢查 list 是否為空
     * `stack.pop()` 除了丟掉最後一個外，也可以直接把最後一個 element 取出來
 
-```
+```python
 class Solution(object):
     def isValid(self, s):
         """

@@ -41,7 +41,7 @@ Output: [0]
     * 因為 while loop 只要在其中一個 list 為空就會停止，所以最後要記得將不為空的 list 接上。
     * 因為要輸出的結果為 **the head of the merged linked list**，意思就是輸出最後的 list，故要將一開始的 `LinkedList` 指向 `next` (因為初始的第一個 value=0)。
 
-```
+```python
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, val=0, next=None):
@@ -80,7 +80,7 @@ class Solution(object):
     * 最一開始的 if/else 主要是要判斷有沒有 list 為空，若有就直接 return 另一個 list。
     * 接下來就是根據大小的判斷決定目前的 list 要怎麼往下接。
 
-```
+```python
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, val=0, next=None):

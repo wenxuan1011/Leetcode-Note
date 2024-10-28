@@ -33,7 +33,7 @@ Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 
 從一開始的 element 開始向後比對，看漢神相加會符合 target。 有找到就 return，沒有就繼續。（`nums` 沒有按大小排列）
 
-```
+```python
 class Solution(object):
     def twoSum(self, nums, target):
         """
@@ -56,7 +56,7 @@ class Solution(object):
 
 hash table 裡面存 element 的 value 和 index。
 
-```
+```python
 class Solution(object):
     def twoSum(self, nums, target):
         """
