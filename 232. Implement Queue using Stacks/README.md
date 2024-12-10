@@ -24,7 +24,6 @@ myQueue.pop(); // return 1, queue is [2]
 myQueue.empty(); // return false
 ```
 
-
 ### Constraints
 * `1 <= x <= 9`
 * At most `100` calls will be made to `push`, `pop`, `peek`, and `empty`.
@@ -38,9 +37,6 @@ myQueue.empty(); // return false
 用一個 stack (`in_stack`) 存放放進來的元素，另一個 stack (`out_stack`) 負責將 `in_stack` 的順序全部倒過來，以完成 FIFO 的效果。
 
 為了要將順序倒過來，可以寫一個 `transfer()` 的 function 方便在 pop/peek 時使用。
-
-* **Note:**
-    * `visited` 用 set 或 list 都可以，但判斷元素是否在其中 (in) 的搜索方法，**set 會比 list 快很多**。
 
 ```python
 class MyQueue(object):
