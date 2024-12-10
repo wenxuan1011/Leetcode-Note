@@ -38,8 +38,8 @@ Output: 1
 
 1. `if isBadVersion(mid) == False` 時 `left = mid + 1`，因為 mid 不為答案，所以 left 要往後再推一個。
 2. `if isBadVersion(mid) == True` 時 `right = mid`，因為 mid 很可能就是答案，若像 binary search 一樣為 `right = mid - 1` 的話可能會不小心從 true 變 false，所以 right 不用往前推一個。
-3. 因為有了上面的改動，while loop 的中指條件不再是發生在 `left > right` 的情況，而會是在 `left = right` 時停止 (**表示 left 逼近到 第一個 true 發生的位置**)，因此要改成 `left < right`。
-4. 也因為第三點的關係，**我們要回傳得值為 left**，非 mid。
+3. 因為有了上面的改動，while loop 的終止條件不再是發生在 `left > right` 的情況，而會是在 `left = right` 時停止 (**表示 left 逼近到第一個 true 發生的位置**)，因此要改成 `left < right`。
+4. 也因為第三點的關係，**我們要回傳的值為 left**，非 mid。
 
 ```python
 # The isBadVersion API is already defined for you.
