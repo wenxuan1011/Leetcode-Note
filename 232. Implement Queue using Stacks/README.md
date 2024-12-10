@@ -33,68 +33,72 @@ myQueue.empty(); // return false
 
 ## Idea
 
-### 1. Linked List Traversal (Brute-force)
+### 1. Intuition
 
-記錄下所有已經拜訪過的 node，如果現在拜訪的 node.next 已存在在拜訪過的 node 中，則有 cycle。
+用一個 stack (`in_stack`) 存放放進來的元素，另一個 stack (`out_stack`) 負責將 `in_stack` 的順序全部倒過來，以完成 FIFO 的效果。
+
+為了要將順序倒過來，可以寫一個 `transfer()` 的 function 方便在 pop/peek 時使用。
 
 * **Note:**
     * `visited` 用 set 或 list 都可以，但判斷元素是否在其中 (in) 的搜索方法，**set 會比 list 快很多**。
 
 ```python
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class MyQueue(object):
 
-class Solution(object):
-    def hasCycle(self, head):
+    def __init__(self):
+        self.in_stack = []
+        self.out_stack = []
+
+
+    def transfer(self):
+        while self.in_stack:
+            self.out_stack.append(self.in_stack.pop())
+
+
+    def push(self, x):
         """
-        :type head: ListNode
+        :type x: int
+        :rtype: None
+        """
+        self.in_stack.append(x)
+
+
+    def pop(self):
+        """
+        :rtype: int
+        """
+        if not self.out_stack:
+            self.transfer()
+        return self.out_stack.pop()
+        
+
+    def peek(self):
+        """
+        :rtype: int
+        """
+        if not self.out_stack:
+            self.transfer()
+        return self.out_stack[-1]
+        
+
+    def empty(self):
+        """
         :rtype: bool
         """
-        visited = set()
-        while head is not None:
-            if head in visited:
-                return True
-            visited.add(head)
-            head = head.next
-        return False
+        return not self.in_stack and not self.out_stack
+        
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
 ```
-* Time complexity: $O(n)$
-    * Traverse the linked list only once.
-    * Python set lookup takes $O(1)$ on average.
+* Time complexity:
+    * **Push:** $O(1)$.
+    * **Pop/Peek:** 
+        * $O(n)$ in the worst case (when `out_stack` is empty, and all elements need to be moved from `in_stack` to `out_stack`). 
+        * Amortized complexity is $O(1)$ per operation since each element is moved at most once.
 * Space complexity: $O(n)$
-    * Use a `set` to record the visited nodes.
-
-
-### 2. Cycle Detection via Slow-Fast Pointers
-
-用兩個 pointer，一個走得快一個走得慢，如果有 cycle 存在，快的有一天會追上慢的。
-
-```python
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
-class Solution(object):
-    def hasCycle(self, head):
-        """
-        :type head: ListNode
-        :rtype: bool
-        """
-        if head is None:
-            return False
-        fast = head
-        slow = head
-        while fast.next and fast.next.next:
-            fast = fast.next.next
-            slow = slow.next
-            if fast == slow:
-                return True
-        return False
-```
-* Time complexity: $O(n)$
-* Space complexity: $O(1)$
+    * Storage required for the two stacks.
