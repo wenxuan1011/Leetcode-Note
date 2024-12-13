@@ -34,7 +34,7 @@ Explanation: There are three ways to climb to the top.
 
 ## Idea
 
-### 1. Intuition - Recursive (TLE)
+### 1. Recursive (TLE)
 
 n 的答案其實就是 (n-1 時的解全部都多走一步) + (n-2 時的解全部都多走兩步)。
 
@@ -54,7 +54,7 @@ class Solution(object):
 * Space complexity: $O(n)$
     * The depth of call stack takes $O(n)$.
 
-### 2. Intuition - For Loop
+### 2. For Loop
 
 把解法一的概念換成用 for loop 慢慢加。
 
@@ -81,3 +81,55 @@ class Solution(object):
 ```
 * Time complexity: $O(n)$
 * Space complexity: $O(1)$
+
+### 3. Recursive with Memoization
+
+建立一個 `memory` 的 Dict，將有算過的結果都記下來，可以不用像方法一重複計算。
+
+使時間複雜度由 $O(2^n)$ 變成 $O(n)$。
+
+```python
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        def _climbStairs(n):
+            if n in memory:
+                return memory[n]
+            memory[n] = _climbStairs(n-1) + _climbStairs(n-2)
+            return memory[n]
+        
+        memory = {1: 1, 2: 2}
+        return _climbStairs(n)
+```
+* Time complexity: $O(n)$
+* Space complexity: $O(n)$
+    * The depth of call stack takes $O(n)$.
+
+### 4. 1d Dynamic Programming (DP) with DP Array
+
+用一個 list 一個一個去算 `list[i] = list[i-1] + list[i-2]`。
+
+由 i＝2 一路算到 i=n+1，即得到答案。
+
+* **Note:**
+    * counting：[1, 1, 2, 3, 5, 8, ...]
+    * index：[0, 1, 2, 3, 4, 5, ...]
+    * **注意：n=0 的情況雖然不存在，但為了讓 n=2 後都能按照規律計算，n=0 的初始值設定為 1。**
+
+```python
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        counting_list = [1] * (n+1)
+        for i in range(2, n+1):
+            counting_list[i] = counting_list[i-1] + counting_list[i-2]
+        return counting_list[n]
+```
+* Time complexity: $O(n)$
+* Space complexity: $O(n)$
