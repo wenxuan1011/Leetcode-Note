@@ -109,7 +109,7 @@ class Solution(object):
 
 概念和上面完全一樣，只是改成存兩個 hash table，然後比較他們有沒有長得一樣。
 
-```
+```python
 class Solution(object):
     def isAnagram(self, s, t):
         """
@@ -134,7 +134,7 @@ class Solution(object):
 
 用 pyhton 的 `sorted()` 可以完成字串排序 (按字母順序排)
 
-```
+```python
 class Solution(object):
     def isAnagram(self, s, t):
         """
